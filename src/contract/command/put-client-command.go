@@ -4,27 +4,25 @@ import (
 	"github.com/dev-jpnobrega/workout-domain/src/contract/interfaces"
 	"github.com/dev-jpnobrega/workout-domain/src/contract/valueObject"
 	"github.com/dev-jpnobrega/workout-domain/src/entity"
-	"github.com/google/uuid"
 )
 
-// A CreateClientComannd represent business logic to create client
-type CreateClientComannd struct {
+// A PutClientComannd represent business logic to edit client
+type PutClientComannd struct {
 	Repository interfaces.IClientRepository
 }
 
-func (c *CreateClientComannd) GetModelValidate() *valueObject.ValidateModal {
+func (c *PutClientComannd) GetModelValidate() *valueObject.ValidateModal {
 	return &valueObject.ValidateModal{
-		Modal: &entity.Client{},
+		Modal: &valueObject.PutArgs{},
 	}
 }
 
-func (c *CreateClientComannd) Execute(input valueObject.RequestData) (
+func (c *PutClientComannd) Execute(input valueObject.RequestData) (
 	result valueObject.ResponseData, err *valueObject.ResponseError,
 ) {
 	client := input.Args.(*entity.Client)
-	client.ID = uuid.New()
 
-	_, err = c.Repository.Create(client)
+	_, err = c.Repository.Update(client)
 
 	if err != nil {
 		return
