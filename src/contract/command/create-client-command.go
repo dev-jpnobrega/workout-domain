@@ -8,7 +8,7 @@ import (
 
 // A CreateClientComannd represent business logic to create client
 type CreateClientComannd struct {
-	// Repository interfaces.IClientRepository
+	// Repository interfaces
 }
 
 func (c *CreateClientComannd) GetModelValidate() *valueObject.ValidateModal {
