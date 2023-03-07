@@ -1,19 +1,19 @@
 package domain
 
 import (
-	"github.com/dev-jpnobrega/workout-domain/src/contract/interfaces"
+	// "github.com/dev-jpnobrega/workout-domain/src/contract/interfaces"
 	"github.com/dev-jpnobrega/workout-domain/src/contract/valueObject"
 	// "github.com/google/uuid"
 )
 
 // A CreateClientComannd represent business logic to create client
 type CreateClientComannd struct {
-	Repository interfaces.IClientRepository
+	// Repository interfaces.IClientRepository
 }
 
 func (c *CreateClientComannd) GetModelValidate() *valueObject.ValidateModal {
 	return &valueObject.ValidateModal{
-		//	Modal: &Client{},
+		// Modal: &entity.Client{},
 	}
 }
 
