@@ -8,7 +8,7 @@ import (
 
 // A CreateClientComannd represent business logic to create client
 type CreateClientComannd struct {
-	Repository interfaces.IClientRepository
+	// Repository interfaces.IClientRepository
 }
 
 func (c *CreateClientComannd) GetModelValidate() *valueObject.ValidateModal {
@@ -23,7 +23,7 @@ func (c *CreateClientComannd) Execute(input valueObject.RequestData) (
 	client := input.Args.(*entity.Client)
 	client.ID = uuid.New()
 
-	_, err = c.Repository.Create(client)
+	// _, err = c.Repository.Create(client)
 
 	if err != nil {
 		return
