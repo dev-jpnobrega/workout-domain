@@ -2,6 +2,7 @@ package valueObject
 
 import (
 	"github.com/cheekybits/genny/generic"
+	"github.com/dev-jpnobrega/workout-domain/src/entity"
 )
 
 type ResponseData struct {
@@ -16,6 +17,7 @@ type ValidateModal struct {
 type RequestData struct {
 	Authorization string `header:"Authorization" form:"Authorization" query:"Authorization" validate:"required"`
 	XAppToken     string `header:"X-App-Token" form:"X-App-Token" query:"X-App-Token" validate:"required"`
+	UserInfo      entity.User
 	Args          interface{}
 }
 
