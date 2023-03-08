@@ -1,4 +1,4 @@
-package domain_test
+package domain
 
 import (
 	values "github.com/dev-jpnobrega/workout-domain/src/contract/valueObject"
