@@ -55,19 +55,17 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/dev-jpnobrega/workout-domain/src/command/create-client.command.go (77.8%)</option>
+				<option value="file0">github.com/dev-jpnobrega/workout-domain/src/command/create-client.command.go (100.0%)</option>
 				
-				<option value="file1">github.com/dev-jpnobrega/workout-domain/src/command/get-client.command.go (0.0%)</option>
+				<option value="file1">github.com/dev-jpnobrega/workout-domain/src/command/get-client.command.go (100.0%)</option>
 				
 				<option value="file2">github.com/dev-jpnobrega/workout-domain/src/command/put-client-command.go (0.0%)</option>
 				
-				<option value="file3">github.com/dev-jpnobrega/workout-domain/src/contract/valueObject/data-value-result.go (0.0%)</option>
+				<option value="file3">github.com/dev-jpnobrega/workout-domain/src/contract/valueObject/data-value-result.go (66.7%)</option>
 				
 				<option value="file4">github.com/dev-jpnobrega/workout-domain/src/entity/client.entity.go (0.0%)</option>
 				
 				<option value="file5">github.com/dev-jpnobrega/workout-domain/src/entity/user.entity.go (0.0%)</option>
-				
-				<option value="file6">github.com/dev-jpnobrega/workout-domain/test/fixures/client-repository.go (25.0%)</option>
 				
 				</select>
 			</div>
@@ -95,7 +93,7 @@ type CreateClientComannd struct {
         Repository interfaces.IClientRepository
 }
 
-func (c *CreateClientComannd) GetModelValidate() *valueObject.ValidateModal <span class="cov0" title="0">{
+func (c *CreateClientComannd) GetModelValidate() *valueObject.ValidateModal <span class="cov8" title="1">{
         return &amp;valueObject.ValidateModal{
                 Modal: &amp;entity.Client{},
         }
@@ -109,7 +107,7 @@ func (c *CreateClientComannd) Execute(input valueObject.RequestData) (
 
         _, err = c.Repository.Create(client)
 
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 return
         }</span>
 
@@ -132,7 +130,7 @@ type GetClientCommand struct {
         Repository interfaces.IClientRepository
 }
 
-func (c *GetClientCommand) GetModelValidate() *valueObject.ValidateModal <span class="cov0" title="0">{
+func (c *GetClientCommand) GetModelValidate() *valueObject.ValidateModal <span class="cov8" title="1">{
         return &amp;valueObject.ValidateModal{
                 Modal: &amp;valueObject.SearchArgs{},
         }
@@ -140,16 +138,16 @@ func (c *GetClientCommand) GetModelValidate() *valueObject.ValidateModal <span c
 
 func (g *GetClientCommand) Execute(input valueObject.RequestData) (
         result valueObject.ResponseData, err *valueObject.ResponseError,
-) <span class="cov0" title="0">{
+) <span class="cov8" title="1">{
         args := input.Args.(*valueObject.SearchArgs)
 
         clients, err := g.Repository.Get(args)
 
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 return
         }</span>
 
-        <span class="cov0" title="0">result.Data = clients
+        <span class="cov8" title="1">result.Data = clients
         result.StatusCode = 200
 
         return</span>
@@ -226,7 +224,7 @@ type ResponseError struct {
         Errors     []ErrorModel
 }
 
-func (re *ResponseError) New(message string, code int, statusCode int) *ResponseError <span class="cov0" title="0">{
+func (re *ResponseError) New(message string, code int, statusCode int) *ResponseError <span class="cov8" title="1">{
         re = new(ResponseError)
         re.StatusCode = statusCode
         re.Errors = append(re.Errors, ErrorModel{
@@ -291,33 +289,6 @@ type User struct {
 
 func (u *User) IsValid() bool <span class="cov0" title="0">{
         return (len(strings.TrimSpace(u.UserName)) &gt; 0)
-}</span>
-</pre>
-		
-		<pre class="file" id="file6" style="display: none">package domain
-
-import (
-        values "github.com/dev-jpnobrega/workout-domain/src/contract/valueObject"
-        entity "github.com/dev-jpnobrega/workout-domain/src/entity"
-)
-
-// A ClientRepository represent client database
-type ClientRepository struct{}
-
-func (c *ClientRepository) Get(params interface{}) (*[]entity.Client, *values.ResponseError) <span class="cov0" title="0">{
-        clients := &amp;[]entity.Client{}
-
-        return clients, nil
-}</span>
-
-func (c *ClientRepository) Create(client *entity.Client) (*entity.Client, *values.ResponseError) <span class="cov8" title="1">{
-
-        return client, nil
-}</span>
-
-func (c *ClientRepository) Update(client *entity.Client) (bool, *values.ResponseError) <span class="cov0" title="0">{
-
-        return true, nil
 }</span>
 </pre>
 		

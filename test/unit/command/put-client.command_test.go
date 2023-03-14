@@ -7,25 +7,20 @@ import (
 
 	command "github.com/dev-jpnobrega/workout-domain/src/command"
 	valueObject "github.com/dev-jpnobrega/workout-domain/src/contract/valueObject"
-	entity "github.com/dev-jpnobrega/workout-domain/src/entity"
 
 	fixures "github.com/dev-jpnobrega/workout-domain/test/fixures"
 )
 
-func TestCreateClientCommand(t *testing.T) {
-	t.Run("Customer created successfully", func(t *testing.T) {
+func TestPutClientCommand(t *testing.T) {
+	t.Run("Customer updated successfully", func(t *testing.T) {
 		data := new(valueObject.RequestData)
-		client := new(entity.Client)
+		args := new(valueObject.PutArgs)
 
-		client.CompanyID = 1
-		client.Email = "test@test.com"
-		client.Name = "JP"
-
-		commandExec := &command.CreateClientComannd{
+		commandExec := &command.PutClientComannd{
 			Repository: &fixures.ClientRepository{},
 		}
 
-		data.Args = client
+		data.Args = args
 
 		result, err := commandExec.Execute(*data)
 
@@ -34,19 +29,16 @@ func TestCreateClientCommand(t *testing.T) {
 		assert.EqualValues(t, 200, result.StatusCode)
 	})
 
-	t.Run("Client created with error", func(t *testing.T) {
+	t.Run("Get clients with error", func(t *testing.T) {
 		data := new(valueObject.RequestData)
-		client := new(entity.Client)
+		args := new(valueObject.SearchArgs)
+		args.Name = "thorw"
 
-		client.Age = 100
-		client.Email = "test@test.com"
-		client.Name = "JP"
-
-		commandExec := &command.CreateClientComannd{
+		commandExec := &command.GetClientCommand{
 			Repository: &fixures.ClientRepository{},
 		}
 
-		data.Args = client
+		data.Args = args
 
 		_, err := commandExec.Execute(*data)
 
@@ -55,18 +47,18 @@ func TestCreateClientCommand(t *testing.T) {
 		assert.Len(t, err.Errors, 1)
 	})
 
-	t.Run("Client validate model", func(t *testing.T) {
+	t.Run("GetClient validate model", func(t *testing.T) {
 		data := new(valueObject.RequestData)
-		client := new(entity.Client)
+		args := new(valueObject.SearchArgs)
 
-		commandExec := &command.CreateClientComannd{
+		commandExec := &command.GetClientCommand{
 			Repository: &fixures.ClientRepository{},
 		}
 
-		data.Args = client
+		data.Args = args
 
 		validated := commandExec.GetModelValidate()
 
-		assert.Equal(t, client, validated.Modal)
+		assert.Equal(t, args, validated.Modal)
 	})
 }

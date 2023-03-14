@@ -1,4 +1,4 @@
-package domain
+package domain_test
 
 import (
 	values "github.com/dev-jpnobrega/workout-domain/src/contract/valueObject"
@@ -6,15 +6,29 @@ import (
 )
 
 // A ClientRepository represent client database
-type ClientRepository struct{}
-
-func (c *ClientRepository) Get(params interface{}) (*[]entity.Client, *values.ResponseError) {
-	clients := &[]entity.Client{}
-
-	return clients, nil
+type ClientRepository struct {
+	ClientsMock []entity.Client
 }
 
-func (c *ClientRepository) Create(client *entity.Client) (*entity.Client, *values.ResponseError) {
+func (c *ClientRepository) Get(params interface{}) (clientsResult *[]entity.Client, err *values.ResponseError) {
+	args := params.(*values.SearchArgs)
+
+	if args.Name == "thorw" {
+		err := err.New("Falied getClients", 101, 400)
+
+		return nil, err
+	}
+
+	return &c.ClientsMock, nil
+}
+
+func (c *ClientRepository) Create(client *entity.Client) (clientResult *entity.Client, err *values.ResponseError) {
+
+	if client.Age == 100 {
+		err := err.New("Falied create client", 100, 400)
+
+		return nil, err
+	}
 
 	return client, nil
 }
