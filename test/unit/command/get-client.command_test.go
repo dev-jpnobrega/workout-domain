@@ -3,6 +3,7 @@ package domain_test
 import (
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
 	command "github.com/dev-jpnobrega/workout-domain/src/command"
@@ -14,17 +15,21 @@ import (
 
 var clientsMock []entity.Client
 
+func TestMain(m *testing.M) {
+	client1 := entity.Client{ID: uuid.New(), Name: "JP", Age: 10}
+	client2 := entity.Client{ID: uuid.New(), Name: "JP", Age: 10}
+	client3 := entity.Client{ID: uuid.New(), Name: "JP", Age: 10}
+
+	clientsMock = append(clientsMock, client1, client2, client3)
+
+	m.Run()
+}
+
 func TestGetClientCommand(t *testing.T) {
 
 	t.Run("Get clients without filters", func(t *testing.T) {
 		data := new(valueObject.RequestData)
 		args := new(valueObject.SearchArgs)
-
-		client1 := entity.Client{Name: "JP", Age: 10}
-		client2 := entity.Client{Name: "JP", Age: 10}
-		client3 := entity.Client{Name: "JP", Age: 10}
-
-		clientsMock = append(clientsMock, client1, client2, client3)
 
 		commandExec := &command.GetClientCommand{
 			Repository: &fixures.ClientRepository{

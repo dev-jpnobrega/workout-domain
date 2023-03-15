@@ -3,21 +3,25 @@ package domain_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	command "github.com/dev-jpnobrega/workout-domain/src/command"
 	valueObject "github.com/dev-jpnobrega/workout-domain/src/contract/valueObject"
-
+	"github.com/dev-jpnobrega/workout-domain/src/entity"
 	fixures "github.com/dev-jpnobrega/workout-domain/test/fixures"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPutClientCommand(t *testing.T) {
 	t.Run("Customer updated successfully", func(t *testing.T) {
 		data := new(valueObject.RequestData)
-		args := new(valueObject.PutArgs)
+		args := new(entity.Client)
+
+		args.ID = clientsMock[0].ID
+		args.Name = "JP-updated"
 
 		commandExec := &command.PutClientComannd{
-			Repository: &fixures.ClientRepository{},
+			Repository: &fixures.ClientRepository{
+				ClientsMock: clientsMock,
+			},
 		}
 
 		data.Args = args
@@ -29,13 +33,15 @@ func TestPutClientCommand(t *testing.T) {
 		assert.EqualValues(t, 200, result.StatusCode)
 	})
 
-	t.Run("Get clients with error", func(t *testing.T) {
+	t.Run("Customer updated with error", func(t *testing.T) {
 		data := new(valueObject.RequestData)
-		args := new(valueObject.SearchArgs)
+		args := new(entity.Client)
 		args.Name = "thorw"
 
-		commandExec := &command.GetClientCommand{
-			Repository: &fixures.ClientRepository{},
+		commandExec := &command.PutClientComannd{
+			Repository: &fixures.ClientRepository{
+				ClientsMock: clientsMock,
+			},
 		}
 
 		data.Args = args
@@ -44,14 +50,14 @@ func TestPutClientCommand(t *testing.T) {
 
 		assert.NotNil(t, err)
 		assert.EqualValues(t, 400, err.StatusCode)
-		assert.Len(t, err.Errors, 1)
+		assert.Len(t, err.Errors, 2)
 	})
 
-	t.Run("GetClient validate model", func(t *testing.T) {
+	t.Run("PutClient validate model", func(t *testing.T) {
 		data := new(valueObject.RequestData)
-		args := new(valueObject.SearchArgs)
+		args := new(valueObject.PutArgs)
 
-		commandExec := &command.GetClientCommand{
+		commandExec := &command.PutClientComannd{
 			Repository: &fixures.ClientRepository{},
 		}
 

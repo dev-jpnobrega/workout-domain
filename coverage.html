@@ -59,7 +59,7 @@
 				
 				<option value="file1">github.com/dev-jpnobrega/workout-domain/src/command/get-client.command.go (100.0%)</option>
 				
-				<option value="file2">github.com/dev-jpnobrega/workout-domain/src/command/put-client-command.go (0.0%)</option>
+				<option value="file2">github.com/dev-jpnobrega/workout-domain/src/command/put-client-command.go (100.0%)</option>
 				
 				<option value="file3">github.com/dev-jpnobrega/workout-domain/src/contract/valueObject/data-value-result.go (66.7%)</option>
 				
@@ -167,7 +167,7 @@ type PutClientComannd struct {
         Repository interfaces.IClientRepository
 }
 
-func (c *PutClientComannd) GetModelValidate() *valueObject.ValidateModal <span class="cov0" title="0">{
+func (c *PutClientComannd) GetModelValidate() *valueObject.ValidateModal <span class="cov8" title="1">{
         return &amp;valueObject.ValidateModal{
                 Modal: &amp;valueObject.PutArgs{},
         }
@@ -175,16 +175,16 @@ func (c *PutClientComannd) GetModelValidate() *valueObject.ValidateModal <span c
 
 func (c *PutClientComannd) Execute(input valueObject.RequestData) (
         result valueObject.ResponseData, err *valueObject.ResponseError,
-) <span class="cov0" title="0">{
+) <span class="cov8" title="1">{
         client := input.Args.(*entity.Client)
 
         _, err = c.Repository.Update(client)
 
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 return
         }</span>
 
-        <span class="cov0" title="0">result.Data = client
+        <span class="cov8" title="1">result.Data = client
         result.StatusCode = 200
 
         return</span>

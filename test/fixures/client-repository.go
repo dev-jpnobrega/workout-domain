@@ -33,7 +33,13 @@ func (c *ClientRepository) Create(client *entity.Client) (clientResult *entity.C
 	return client, nil
 }
 
-func (c *ClientRepository) Update(client *entity.Client) (bool, *values.ResponseError) {
+func (c *ClientRepository) Update(client *entity.Client) (rs bool, err *values.ResponseError) {
+	if client.Name == "thorw" {
+		err := err.New("Falied getClients", 201, 400)
+		err.Append(202, "user.notFound")
+
+		return false, err
+	}
 
 	return true, nil
 }

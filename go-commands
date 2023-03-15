@@ -1,0 +1,8 @@
+# Build
+go build
+
+# Test
+go test ./... -v -coverpkg=./src/... -coverprofile=coverage.out
+
+# Coverage HTML
+go tool cover -html=coverage.out -o=coverage.html
