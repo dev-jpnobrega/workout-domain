@@ -24,6 +24,12 @@ func (c *CreateClientComannd) Execute(input valueObject.RequestData) (
 	client := input.Args.(*entity.Client)
 	client.ID = uuid.New()
 
+	if !client.IsValid() {
+		err = err.New("user.not.valid", 100, 422)
+
+		return
+	}
+
 	_, err = c.Repository.Create(client)
 
 	if err != nil {

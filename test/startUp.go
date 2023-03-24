@@ -1,12 +1,6 @@
 package domain_test
 
-import (
-	"testing"
-
-	"github.com/dev-jpnobrega/workout-domain/src/entity"
-	"github.com/google/uuid"
-)
-
+/*
 var ClientsMock []entity.Client
 
 func TestMain(m *testing.M) {
@@ -16,5 +10,8 @@ func TestMain(m *testing.M) {
 
 	ClientsMock = append(ClientsMock, client1, client2, client3)
 
-	m.Run()
+	fmt.Printf("%+v\n DOMAIN", ClientsMock)
+
+	os.Exit(m.Run())
 }
+*/

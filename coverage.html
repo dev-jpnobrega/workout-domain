@@ -55,15 +55,15 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/dev-jpnobrega/workout-domain/src/command/create-client.command.go (100.0%)</option>
+				<option value="file0">github.com/dev-jpnobrega/workout-domain/src/command/create-client.command.go (83.3%)</option>
 				
 				<option value="file1">github.com/dev-jpnobrega/workout-domain/src/command/get-client.command.go (100.0%)</option>
 				
 				<option value="file2">github.com/dev-jpnobrega/workout-domain/src/command/put-client-command.go (100.0%)</option>
 				
-				<option value="file3">github.com/dev-jpnobrega/workout-domain/src/contract/valueObject/data-value-result.go (66.7%)</option>
+				<option value="file3">github.com/dev-jpnobrega/workout-domain/src/contract/valueObject/data-value-result.go (100.0%)</option>
 				
-				<option value="file4">github.com/dev-jpnobrega/workout-domain/src/entity/client.entity.go (0.0%)</option>
+				<option value="file4">github.com/dev-jpnobrega/workout-domain/src/entity/client.entity.go (100.0%)</option>
 				
 				<option value="file5">github.com/dev-jpnobrega/workout-domain/src/entity/user.entity.go (0.0%)</option>
 				
@@ -72,8 +72,17 @@
 			<div id="legend">
 				<span>not tracked</span>
 			
-				<span class="cov0">not covered</span>
-				<span class="cov8">covered</span>
+				<span class="cov0">no coverage</span>
+				<span class="cov1">low coverage</span>
+				<span class="cov2">*</span>
+				<span class="cov3">*</span>
+				<span class="cov4">*</span>
+				<span class="cov5">*</span>
+				<span class="cov6">*</span>
+				<span class="cov7">*</span>
+				<span class="cov8">*</span>
+				<span class="cov9">*</span>
+				<span class="cov10">high coverage</span>
 			
 			</div>
 		</div>
@@ -93,7 +102,7 @@ type CreateClientComannd struct {
         Repository interfaces.IClientRepository
 }
 
-func (c *CreateClientComannd) GetModelValidate() *valueObject.ValidateModal <span class="cov8" title="1">{
+func (c *CreateClientComannd) GetModelValidate() *valueObject.ValidateModal <span class="cov1" title="1">{
         return &amp;valueObject.ValidateModal{
                 Modal: &amp;entity.Client{},
         }
@@ -101,17 +110,23 @@ func (c *CreateClientComannd) GetModelValidate() *valueObject.ValidateModal <spa
 
 func (c *CreateClientComannd) Execute(input valueObject.RequestData) (
         result valueObject.ResponseData, err *valueObject.ResponseError,
-) <span class="cov8" title="1">{
+) <span class="cov10" title="2">{
         client := input.Args.(*entity.Client)
         client.ID = uuid.New()
 
-        _, err = c.Repository.Create(client)
+        if !client.IsValid() </span><span class="cov0" title="0">{
+                err = err.New("user.not.valid", 100, 422)
 
-        if err != nil </span><span class="cov8" title="1">{
                 return
         }</span>
 
-        <span class="cov8" title="1">result.Data = client
+        <span class="cov10" title="2">_, err = c.Repository.Create(client)
+
+        if err != nil </span><span class="cov1" title="1">{
+                return
+        }</span>
+
+        <span class="cov1" title="1">result.Data = client
         result.StatusCode = 200
 
         return</span>
@@ -130,7 +145,7 @@ type GetClientCommand struct {
         Repository interfaces.IClientRepository
 }
 
-func (c *GetClientCommand) GetModelValidate() *valueObject.ValidateModal <span class="cov8" title="1">{
+func (c *GetClientCommand) GetModelValidate() *valueObject.ValidateModal <span class="cov1" title="1">{
         return &amp;valueObject.ValidateModal{
                 Modal: &amp;valueObject.SearchArgs{},
         }
@@ -138,16 +153,16 @@ func (c *GetClientCommand) GetModelValidate() *valueObject.ValidateModal <span c
 
 func (g *GetClientCommand) Execute(input valueObject.RequestData) (
         result valueObject.ResponseData, err *valueObject.ResponseError,
-) <span class="cov8" title="1">{
+) <span class="cov10" title="2">{
         args := input.Args.(*valueObject.SearchArgs)
 
         clients, err := g.Repository.Get(args)
 
-        if err != nil </span><span class="cov8" title="1">{
+        if err != nil </span><span class="cov1" title="1">{
                 return
         }</span>
 
-        <span class="cov8" title="1">result.Data = clients
+        <span class="cov1" title="1">result.Data = clients
         result.StatusCode = 200
 
         return</span>
@@ -167,7 +182,7 @@ type PutClientComannd struct {
         Repository interfaces.IClientRepository
 }
 
-func (c *PutClientComannd) GetModelValidate() *valueObject.ValidateModal <span class="cov8" title="1">{
+func (c *PutClientComannd) GetModelValidate() *valueObject.ValidateModal <span class="cov1" title="1">{
         return &amp;valueObject.ValidateModal{
                 Modal: &amp;valueObject.PutArgs{},
         }
@@ -175,16 +190,16 @@ func (c *PutClientComannd) GetModelValidate() *valueObject.ValidateModal <span c
 
 func (c *PutClientComannd) Execute(input valueObject.RequestData) (
         result valueObject.ResponseData, err *valueObject.ResponseError,
-) <span class="cov8" title="1">{
+) <span class="cov10" title="2">{
         client := input.Args.(*entity.Client)
 
         _, err = c.Repository.Update(client)
 
-        if err != nil </span><span class="cov8" title="1">{
+        if err != nil </span><span class="cov1" title="1">{
                 return
         }</span>
 
-        <span class="cov8" title="1">result.Data = client
+        <span class="cov1" title="1">result.Data = client
         result.StatusCode = 200
 
         return</span>
@@ -224,7 +239,7 @@ type ResponseError struct {
         Errors     []ErrorModel
 }
 
-func (re *ResponseError) New(message string, code int, statusCode int) *ResponseError <span class="cov8" title="1">{
+func (re *ResponseError) New(message string, code int, statusCode int) *ResponseError <span class="cov10" title="3">{
         re = new(ResponseError)
         re.StatusCode = statusCode
         re.Errors = append(re.Errors, ErrorModel{
@@ -235,7 +250,7 @@ func (re *ResponseError) New(message string, code int, statusCode int) *Response
         return re
 }</span>
 
-func (re *ResponseError) Append(code int, message string) *ResponseError <span class="cov0" title="0">{
+func (re *ResponseError) Append(code int, message string) *ResponseError <span class="cov1" title="1">{
         re.Errors = append(re.Errors, ErrorModel{
                 Code:    code,
                 Message: message,
@@ -266,7 +281,7 @@ type Client struct {
         DeletedAt *time.Time
 }
 
-func (c Client) IsValid() bool <span class="cov0" title="0">{
+func (c Client) IsValid() bool <span class="cov10" title="2">{
         return (len(strings.TrimSpace(c.Name)) &gt; 0)
 }</span>
 </pre>

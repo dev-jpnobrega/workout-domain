@@ -1,6 +1,8 @@
 package domain_test
 
 import (
+	"fmt"
+	"os"
 	"testing"
 
 	"github.com/google/uuid"
@@ -13,16 +15,18 @@ import (
 	fixures "github.com/dev-jpnobrega/workout-domain/test/fixures"
 )
 
-var clientsMock []entity.Client
+var ClientsMock []entity.Client
 
 func TestMain(m *testing.M) {
 	client1 := entity.Client{ID: uuid.New(), Name: "JP", Age: 10}
 	client2 := entity.Client{ID: uuid.New(), Name: "JP", Age: 10}
 	client3 := entity.Client{ID: uuid.New(), Name: "JP", Age: 10}
 
-	clientsMock = append(clientsMock, client1, client2, client3)
+	ClientsMock = append(ClientsMock, client1, client2, client3)
 
-	m.Run()
+	fmt.Printf("%+v\n DOMAIN", ClientsMock)
+
+	os.Exit(m.Run())
 }
 
 func TestGetClientCommand(t *testing.T) {
@@ -31,9 +35,11 @@ func TestGetClientCommand(t *testing.T) {
 		data := new(valueObject.RequestData)
 		args := new(valueObject.SearchArgs)
 
+		fmt.Printf("%+v\n", ClientsMock)
+
 		commandExec := &command.GetClientCommand{
 			Repository: &fixures.ClientRepository{
-				ClientsMock: clientsMock,
+				ClientsMock: ClientsMock,
 			},
 		}
 

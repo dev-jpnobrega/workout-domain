@@ -6,6 +6,7 @@ import (
 	command "github.com/dev-jpnobrega/workout-domain/src/command"
 	valueObject "github.com/dev-jpnobrega/workout-domain/src/contract/valueObject"
 	"github.com/dev-jpnobrega/workout-domain/src/entity"
+
 	fixures "github.com/dev-jpnobrega/workout-domain/test/fixures"
 	"github.com/stretchr/testify/assert"
 )
@@ -15,12 +16,12 @@ func TestPutClientCommand(t *testing.T) {
 		data := new(valueObject.RequestData)
 		args := new(entity.Client)
 
-		args.ID = clientsMock[0].ID
+		args.ID = ClientsMock[0].ID
 		args.Name = "JP-updated"
 
 		commandExec := &command.PutClientComannd{
 			Repository: &fixures.ClientRepository{
-				ClientsMock: clientsMock,
+				ClientsMock: ClientsMock,
 			},
 		}
 
@@ -40,7 +41,7 @@ func TestPutClientCommand(t *testing.T) {
 
 		commandExec := &command.PutClientComannd{
 			Repository: &fixures.ClientRepository{
-				ClientsMock: clientsMock,
+				ClientsMock: ClientsMock,
 			},
 		}
 
