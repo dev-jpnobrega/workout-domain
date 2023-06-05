@@ -2,7 +2,13 @@
 go build
 
 # Test
-go test ./... -v -coverpkg=./src/... -coverprofile=coverage.out
+unit: go test  ./test/unit/... -race -covermode=atomic  -v -coverpkg=./src/... -coverprofile=coverage.out
+integration: go test  ./test/integration/... -race -covermode=atomic  -v -coverpkg=./src/... -coverprofile=coverage.out
+all: go test ./... -v -coverpkg=./src/... -coverprofile=coverage.out
+
 
 # Coverage HTML
 go tool cover -html=coverage.out -o=coverage.html
+
+#GOROOT
+export GOROOT="/usr/local/go"
